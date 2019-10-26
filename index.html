@@ -18,6 +18,7 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="./assets/js/unos_artikla.js"></script>
     <title>Rad sa artiklima</title>
 </head>
 
@@ -30,20 +31,24 @@
             <h2 class="text-center">Unos artikla</h2>
             <div class="form-group">
                 <label for="barkod">Barkod</label>
-                <input type="number" class="form-control" id="barkod" name="barkod" placeholder="Broj barkoda">
+                <input type="number" class="form-control" id="barkod" name="barkod" placeholder="Broj barkoda" required>
+                <small class="pt-5 text-danger" id="errBarkod"></small>
             </div>
             <div class="form-group">
                 <label for="naziv">Naziv artikla</label>
-                <input type="text" class="form-control" id="naziv" name="naziv" placeholder="Unesite naziv artikla">
+                <input type="text" class="form-control" id="naziv" name="naziv" placeholder="Unesite naziv artikla"
+                    required>
+                <small class="pt-5 text-danger" id="errNaziv"></small>
             </div>
             <div class="form-group">
                 <label for="opis">Opis artikla</label>
                 <textarea maxlength="200" class="form-control" id="opis" name="opis" rows="3"
                     placeholder="Unesite opis..."></textarea>
+                <small class="pt-5 text-danger" id="errOpis"></small>
             </div>
             <div class="form-group">
                 <label for="vrsta">Vrsta artikla</label>
-                <select class="form-control" id="vrsta" name="vrsta">
+                <select class="form-control" id="vrsta" name="vrsta" required>
                     <option>Papirna galanterija</option>
                     <option>Vlažne maramice</option>
                     <option>Kozmetika</option>
@@ -53,27 +58,39 @@
                 <div class="form-group col-md-6">
                     <label for="cena">Osnovna cena</label>
                     <input type="number" class="form-control" id="cena" name="cena" placeholder="Unesite cenu bez PDV">
+                    <small class="pt-5 text-danger" id="errCena"></small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="pdv">Cena sa PDV-om</label>
                     <input type="number" class="form-control" id="pdv" name="pdv" readonly>
                 </div>
-                <div class="input-group my-3 px-1">
+            </div>
+            <div class="form-row">
+                <div class="input-group my-3 col-md-6">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="slika" name="slika">
-                        <label class="custom-file-label" for="slika">Izaberite sliku</label>
+                        <label class="custom-file-label" id="errSlika" for="slika">Izaberite sliku </label>
                     </div>
                 </div>
+                <div class="form-group col-md-6 my-3">
+                    <div class="card m-auto">
+                        <img class="card-img-top w-100" id="prikaz-slike" src="">
+                        <div class="card-body">
+                            <p class="text-center">Prikaz slike</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="form-group text-center">
-                <button type="button" class="btn btn-success text-center">Sačuvaj podatke</button>
+            <div class="form-group text-center my-3">
+                <button type="submit" id="sacuvaj" class="btn btn-success text-center">Sačuvaj podatke</button>
             </div>
         </form>
         <!-- FORM -->
 
         <!-- TABLE -->
         <form class="bg-light mt-5 mb-0 p-1 pt-3 rounded">
-                <h2 class="text-center">Lista unešenih podataka</h2>
+            <h2 class="text-center">Lista unešenih podataka</h2>
             <div class="form-group row">
                 <label for="pretraga" class="col-lg-3 col-form-label">Pretraga po nazivu:</label>
                 <div class="col-lg-6">

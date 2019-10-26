@@ -12,6 +12,7 @@ body {
     background-color: rgba(136, 219, 255, 0.432);
 }
 /* stil za los unos podataka */
+.form-control:focus.bad-input,
 .bad-input {
     border-color: rgba(255, 0, 0, 0.8);
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
@@ -19,4 +20,10 @@ body {
 }
 .td-slika{
     width: 60px;
+}
+#unos_artikla .card{
+    max-width: 300px;
+}
+#unos_artikla img{
+    background-color: rgb(163, 128, 128);      
 }

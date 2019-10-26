@@ -1,0 +1,22 @@
+body {
+    background-color: #c4e0e5;
+    background-image: linear-gradient(152deg, #c4e0e5, #4ca1af);
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover
+}
+
+/* promena boje polja koje se unosi */
+
+.form-control:focus {
+    background-color: rgba(136, 219, 255, 0.432);
+}
+/* stil za los unos podataka */
+.bad-input {
+    border-color: rgba(255, 0, 0, 0.8);
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+    outline: 0 none;
+}
+.td-slika{
+    width: 60px;
+}

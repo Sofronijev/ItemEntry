@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <title>Rad sa artiklima</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- FORM -->
+        <h1 class="display-3 text-center">Rad sa artiklima</h1>
+        <form id="unos_artikla" class="rounded bg-light p-4">
+            <h2 class="text-center">Unos artikla</h2>
+            <div class="form-group">
+                <label for="barkod">Barkod</label>
+                <input type="number" class="form-control" id="barkod" name="barkod" placeholder="Broj barkoda">
+            </div>
+            <div class="form-group">
+                <label for="naziv">Naziv artikla</label>
+                <input type="text" class="form-control" id="naziv" name="naziv" placeholder="Unesite naziv artikla">
+            </div>
+            <div class="form-group">
+                <label for="opis">Opis artikla</label>
+                <textarea maxlength="200" class="form-control" id="opis" name="opis" rows="3"
+                    placeholder="Unesite opis..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="vrsta">Vrsta artikla</label>
+                <select class="form-control" id="vrsta" name="vrsta">
+                    <option>Papirna galanterija</option>
+                    <option>Vlažne maramice</option>
+                    <option>Kozmetika</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cena">Osnovna cena</label>
+                    <input type="number" class="form-control" id="cena" name="cena" placeholder="Unesite cenu bez PDV">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="pdv">Cena sa PDV-om</label>
+                    <input type="number" class="form-control" id="pdv" name="pdv" readonly>
+                </div>
+                <div class="input-group my-3 px-1">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="slika" name="slika">
+                        <label class="custom-file-label" for="slika">Izaberite sliku</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-success text-center">Sačuvaj podatke</button>
+            </div>
+        </form>
+        <!-- FORM -->
+
+        <!-- TABLE -->
+        <form class="bg-light mt-5 mb-0 p-1 pt-3 rounded">
+                <h2 class="text-center">Lista unešenih podataka</h2>
+            <div class="form-group row">
+                <label for="pretraga" class="col-lg-3 col-form-label">Pretraga po nazivu:</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="pretraga" name="pretraga">
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive-lg bg-light rounded">
+            <table id="tabela" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th class="align-middle">Barkod</th>
+                        <th class="align-middle">Naziv</th>
+                        <th class="align-middle">Opis</th>
+                        <th class="align-middle">Vrsta</th>
+                        <th class="align-middle">Cena</th>
+                        <th class="align-middle">Cena sa PDV-om</th>
+                        <th class="align-middle">Slika</th>
+                        <th class="align-middle">Datum/vreme</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12334123</td>
+                        <td>Papir za dupe</td>
+                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat eius eaque architecto
+                            expedita
+                            sed, voluptates accusamus! Repellendus tempora dicta aperiam, labore maxime quasi
+                            consequuntur
+                            non ab, nesciunt dolorum temporibus quis.</td>
+                        <td>Papirna galanterija</td>
+                        <td>8.543,00</td>
+                        <td>10.235,47</td>
+                        <td><img class="td-slika"
+                                src="https://bubalica.rs/wp-content/uploads/2018/03/11301-Maramice-papirne-Camelia-Bubalica.png">
+                        </td>
+                        <td>10.10.2019 13:40</td>
+                    </tr>
+                    <tr>
+                        <td>12334123</td>
+                        <td>Papir za dupe</td>
+                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat eius eaque architecto
+                            expedita
+                            sed, voluptates accusamus! Repellendus tempora dicta aperiam, labore maxime quasi
+                            consequuntur
+                            non ab, nesciunt dolorum temporibus quis.</td>
+                        <td>Papirna galanterija</td>
+                        <td>8.543,00</td>
+                        <td>10.235,47</td>
+                        <td><img class="td-slika"
+                                src="https://cenoteka.rs/assets/images/articles/toalet-papir-perfex-3sloja-24kom-1004283-large.jpg">
+                        </td>
+                        <td>10.10.2019 13:40</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TABLE -->
+
+    </div>
+
+</body>
+
+</html>

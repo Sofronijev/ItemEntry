@@ -12,6 +12,7 @@ $(document).ready(() => {
     let pdvCena = $("#pdv");
     let slika = $("#slika");
     let errSlika = $("#errSlika");
+    let tabela = $('#tabela tbody');
 
 
     function checkLocalStorage() {
@@ -114,31 +115,86 @@ $(document).ready(() => {
 
             if (ext.toLowerCase() === "png") {
                 errSlika.text(nazivSlike);
-                errSlika.removeClass("text-danger");
-                var reader = new FileReader();
+                errSlika.removeClass("text-danger bad-input");
+                slika.removeClass("bad-input");
 
+                //FileReader objekat asinhrono cita sadrzaj fajla skoji se nalazi na korisnickom kompjuteru
+                let reader = new FileReader();
+                //kad je uspesno zavrseno citanje upisuje u src
                 reader.onload = function (e) {
                     $('#prikaz-slike').attr('src', e.target.result);
                 }
-
+                //cita sadrzaj fajla
                 reader.readAsDataURL(input.files[0]);
             } else {
                 errSlika.text("Slika mora da bude u png formatu");
-                errSlika.addClass("text-danger");
+                errSlika.addClass("text-danger bad-input");
+                slika.addClass("bad-input");
             }
         }
     }
-
+    //prikaz slike
     $("#slika").change(function () {
         prikazSlike(this);
     });
+    function addToLocalStorage() {
 
+        let artikli = checkLocalStorage();
+        //kreiramo novi artikl
+        let artikl = new Artikl(barkod.val(), naziv.val(), opis.val(), vrsta.val(), osCena.val(), pdvCena.val(), slika.val());
 
+        //ako je ubacena neka slika menjamo joj vrednost u Base 64
+        if (slika.val()) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                artikl.slika = e.target.result;
+            }
+            reader.readAsDataURL(slika[0].files[0]);
+        }
+        //settimeout je da bi se zavrsila funkcija onload
+        setTimeout(() => {
+            artikli.push(artikl);
+            localStorage.setItem('artikli', JSON.stringify(artikli));
+        }, 500);
+    }
+
+    function ispisArtikla(broj) {
+        setTimeout(() => {
+            let artikli = checkLocalStorage();
+            console.log(artikli);
+            jQuery.each(artikli, function (index, artikl) {
+                //proverava da li se ispisuju svi artikli ili samo jedan novi
+                if (broj === 1 ? index == artikli.length - 1 : true) {
+                    let datum = new Date(artikl.datum);
+                    tabela.append(` <tr>
+                            <td>${artikl.barkod}</td>
+                            <td>${artikl.naziv}</td>
+                            <td>${artikl.opis}</td>
+                            <td>${artikl.vrsta}</td>
+                            <td>${artikl.osCena}</td>
+                            <td>${artikl.pdvCena}</td>
+                            <td><img class="td-slika" src="${artikl.slika}"></td>
+                            <td>${datum.toLocaleString()}</td>
+                            </tr>`
+                    );
+
+                }
+
+            })
+        }, 600);
+    }
+    ispisArtikla();
 
     $("#unos_artikla").submit(function (e) {
         e.preventDefault();
-
-        console.log(slika);
+        //i ako su polje required, ovo je dodatna provera
+        if (barkod.hasClass("bad-input") || barkod.hasClass("bad-input")) {
+            alert("Niste uneli sve obavezne podatke");
+            return;
+        }
+        addToLocalStorage();
+        //ispisuje samo 1 artikl, onaj koji se sad napravio
+        ispisArtikla(1);
 
     });
 

@@ -13,6 +13,7 @@ body {
 }
 /* stil za los unos podataka */
 .form-control:focus.bad-input,
+.custom-file-input.bad-input,
 .bad-input {
     border-color: rgba(255, 0, 0, 0.8);
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
@@ -22,8 +23,14 @@ body {
     width: 60px;
 }
 #unos_artikla .card{
-    max-width: 300px;
+    max-width: 200px;
 }
 #unos_artikla img{
     background-color: rgb(163, 128, 128);      
+}
+/* iskljucuje strelice kod input=number */
+input[type=number].no-spinner::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+-webkit-appearance: none; 
+ margin: 0; 
 }

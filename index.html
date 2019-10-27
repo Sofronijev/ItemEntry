@@ -18,6 +18,7 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="./assets/js/unos_artikla_funkcije.js"></script>
     <script src="./assets/js/unos_artikla.js"></script>
     <title>Rad sa artiklima</title>
 </head>
@@ -31,7 +32,7 @@
             <h2 class="text-center">Unos artikla</h2>
             <div class="form-group">
                 <label for="barkod">Barkod</label>
-                <input type="number" class="form-control" id="barkod" name="barkod" placeholder="Broj barkoda" required>
+                <input type="number" class="form-control no-spinner" id="barkod" name="barkod" placeholder="Broj barkoda" required>
                 <small class="pt-5 text-danger" id="errBarkod"></small>
             </div>
             <div class="form-group">
@@ -57,12 +58,12 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="cena">Osnovna cena</label>
-                    <input type="number" class="form-control" id="cena" name="cena" placeholder="Unesite cenu bez PDV">
+                    <input type="number" class="form-control no-spinner" id="cena" name="cena" placeholder="Unesite cenu bez PDV">
                     <small class="pt-5 text-danger" id="errCena"></small>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="pdv">Cena sa PDV-om</label>
-                    <input type="number" class="form-control" id="pdv" name="pdv" readonly>
+                    <input type="number" class="form-control no-spinner" id="pdv" name="pdv" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -74,10 +75,10 @@
                 </div>
                 <div class="form-group col-md-6 my-3">
                     <div class="card m-auto">
-                        <img class="card-img-top w-100" id="prikaz-slike" src="">
                         <div class="card-body">
                             <p class="text-center">Prikaz slike</p>
                         </div>
+                        <img class="card-img-top w-100" id="prikaz-slike" src="">
                     </div>
                 </div>
 
@@ -112,39 +113,7 @@
                         <th class="align-middle">Datum/vreme</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>12334123</td>
-                        <td>Papir za dupe</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat eius eaque architecto
-                            expedita
-                            sed, voluptates accusamus! Repellendus tempora dicta aperiam, labore maxime quasi
-                            consequuntur
-                            non ab, nesciunt dolorum temporibus quis.</td>
-                        <td>Papirna galanterija</td>
-                        <td>8.543,00</td>
-                        <td>10.235,47</td>
-                        <td><img class="td-slika"
-                                src="https://bubalica.rs/wp-content/uploads/2018/03/11301-Maramice-papirne-Camelia-Bubalica.png">
-                        </td>
-                        <td>10.10.2019 13:40</td>
-                    </tr>
-                    <tr>
-                        <td>12334123</td>
-                        <td>Papir za dupe</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat eius eaque architecto
-                            expedita
-                            sed, voluptates accusamus! Repellendus tempora dicta aperiam, labore maxime quasi
-                            consequuntur
-                            non ab, nesciunt dolorum temporibus quis.</td>
-                        <td>Papirna galanterija</td>
-                        <td>8.543,00</td>
-                        <td>10.235,47</td>
-                        <td><img class="td-slika"
-                                src="https://cenoteka.rs/assets/images/articles/toalet-papir-perfex-3sloja-24kom-1004283-large.jpg">
-                        </td>
-                        <td>10.10.2019 13:40</td>
-                    </tr>
+                <tbody>                    
                 </tbody>
             </table>
         </div>

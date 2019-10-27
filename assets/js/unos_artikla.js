@@ -1,20 +1,20 @@
 $(document).ready(() => {
 
-    let barkod = $("#barkod");
-    let errBarkod = $("#errBarkod");
-    let naziv = $("#naziv");
-    let errNaziv = $("#errNaziv");
-    let opis = $("#opis");
-    let errOpis = $("#errOpis");
-    let vrsta = $("#vrsta");
-    let osCena = $("#cena");
-    let errCena = $("#errCena");
-    let pdvCena = $("#pdv");
-    let slika = $("#slika");
-    let errSlika = $("#errSlika");
-    let tabela = $('#tabela tbody');
-    let pretraga = $('#pretraga');
-    let obrisiBtn = $('#obrisi');
+    const barkod = $("#barkod");
+    const errBarkod = $("#errBarkod");
+    const naziv = $("#naziv");
+    const errNaziv = $("#errNaziv");
+    const opis = $("#opis");
+    const errOpis = $("#errOpis");
+    const vrsta = $("#vrsta");
+    const osCena = $("#cena");
+    const errCena = $("#errCena");
+    const pdvCena = $("#pdv");
+    const slika = $("#slika");
+    const errSlika = $("#errSlika");
+    const tabela = $('#tabela tbody');
+    const pretraga = $('#pretraga');
+    const obrisiBtn = $('#obrisi');
 
 
     function checkLocalStorage() {
@@ -72,7 +72,7 @@ $(document).ready(() => {
         setTimeout(() => {
             artikli.push(artikl);
             localStorage.setItem('artikli', JSON.stringify(artikli));
-        }, 500);
+        }, 100);
     }
 
     //funkcija za ispis artikla
@@ -83,7 +83,7 @@ $(document).ready(() => {
                 //proverava da li se ispisuju svi artikli ili samo jedan novi
                 if (broj === 1 ? index == artikli.length - 1 : true) {
                     let datum = new Date(artikl.datum);
-                    let cena = artikl.cena ? parseInt(artikl.osCena).toFixed(2) : "";
+                    let cena = artikl.osCena ? parseInt(artikl.osCena).toFixed(2) : "";
                     tabela.append(` <tr>
                             <td>${artikl.barkod}</td>
                             <td>${artikl.naziv}</td>
@@ -97,7 +97,7 @@ $(document).ready(() => {
                     );
                 }
             })
-        }, 600);
+        }, 200);
     }
     //kreiranje klase za pravljenje objekata artikl
     class Artikl {
@@ -113,9 +113,6 @@ $(document).ready(() => {
                 this.datum = new Date()
         }
     }
-
-    //Proverava da li postoji nesto u localstorige, ako ima cuva podatke ako je prazno pravi prazan niz
-    let artikli = checkLocalStorage();
 
     //Validacija podataka
 
@@ -193,15 +190,15 @@ $(document).ready(() => {
     $("#unos_artikla").submit(function (e) {
         e.preventDefault();
         //i ako su polje required, ovo je dodatna provera
-        if (barkod.hasClass("bad-input") || barkod.hasClass("bad-input")) {
+        if (barkod.hasClass("bad-input") || naziv.hasClass("bad-input") || !barkod.val() || !naziv.val() || slika.hasClass("bad-input")) {
             alert("Niste uneli sve obavezne podatke");
             return;
         }
+        
+        //dodaje u localstorage
         addToLocalStorage();
-
         //ispisuje samo 1 artikl, onaj koji se sad napravio
         ispisArtikla(1);
-
     });
 
     //filtriranje po nazivu
@@ -220,7 +217,7 @@ $(document).ready(() => {
         tabela.empty();
         jQuery.each(filter, function (index, artikl) {
             let datum = new Date(artikl.datum);
-            let cena = artikl.cena ? parseInt(artikl.osCena).toFixed(2) : "";
+            let cena = artikl.osCena ? parseInt(artikl.osCena).toFixed(2) : "";
             tabela.append(` <tr>
                             <td>${artikl.barkod}</td>
                             <td>${artikl.naziv}</td>

@@ -11,6 +11,7 @@ $(document).ready(() => {
     const errCena = $("#errCena");
     const pdvCena = $("#pdv");
     const slika = $("#slika");
+    const prikaz_slike = $("#prikaz_slike");
     const errSlika = $("#errSlika");
     const tabela = $('#tabela tbody');
     const pretraga = $('#pretraga');
@@ -19,6 +20,17 @@ $(document).ready(() => {
 
     function checkLocalStorage() {
         return localStorage.getItem('artikli') ? JSON.parse(localStorage.getItem('artikli')) : [];
+    }
+
+    function obaveznaPolja() {
+        if (!barkod.val()) {
+            errBarkod.text("Barkod je obavezan");
+            barkod.addClass("bad-input");
+        }
+        if (!naziv.val()) {
+            errNaziv.text("Naziv je obavezan");
+            naziv.addClass("bad-input");
+        }
     }
 
     //Prikaz slike
@@ -41,7 +53,7 @@ $(document).ready(() => {
                 let reader = new FileReader();
                 //kad je uspesno zavrseno citanje upisuje u src
                 reader.onload = function (e) {
-                    $('#prikaz-slike').attr('src', e.target.result);
+                    prikaz_slike.attr('src', e.target.result);
                 }
                 //cita sadrzaj fajla
                 reader.readAsDataURL(input.files[0]);
@@ -58,33 +70,22 @@ $(document).ready(() => {
 
         let artikli = checkLocalStorage();
         //kreiramo novi artikl
-        let artikl = new Artikl(barkod.val(), naziv.val(), opis.val(), vrsta.val(), osCena.val(), pdvCena.val(), slika.val());
+        let artikl = new Artikl(barkod.val(), naziv.val(), opis.val(), vrsta.val(), osCena.val(), pdvCena.val(), prikaz_slike.attr("src"));
+        artikli.push(artikl);
+        localStorage.setItem('artikli', JSON.stringify(artikli));
 
-        //ako je ubacena neka slika menjamo joj vrednost u Base 64
-        if (slika.val()) {
-            let reader = new FileReader();
-            reader.onload = function (e) {
-                artikl.slika = e.target.result;
-            }
-            reader.readAsDataURL(slika[0].files[0]);
-        }
-        //settimeout je da bi se zavrsila funkcija onload
-        setTimeout(() => {
-            artikli.push(artikl);
-            localStorage.setItem('artikli', JSON.stringify(artikli));
-        }, 100);
     }
 
     //funkcija za ispis artikla
     function ispisArtikla(broj) {
-        setTimeout(() => {
-            let artikli = checkLocalStorage();
-            jQuery.each(artikli, function (index, artikl) {
-                //proverava da li se ispisuju svi artikli ili samo jedan novi
-                if (broj === 1 ? index == artikli.length - 1 : true) {
-                    let datum = new Date(artikl.datum);
-                    let cena = artikl.osCena ? parseInt(artikl.osCena).toFixed(2) : "";
-                    tabela.append(` <tr>
+
+        let artikli = checkLocalStorage();
+        jQuery.each(artikli, function (index, artikl) {
+            //proverava da li se ispisuju svi artikli ili samo jedan novi
+            if (broj === 1 ? index == artikli.length - 1 : true) {
+                let datum = new Date(artikl.datum);
+                let cena = artikl.osCena ? parseInt(artikl.osCena).toFixed(2) : "";
+                tabela.append(` <tr>
                             <td>${artikl.barkod}</td>
                             <td>${artikl.naziv}</td>
                             <td>${artikl.opis}</td>
@@ -94,10 +95,10 @@ $(document).ready(() => {
                             <td><img class="td-slika" src="${artikl.slika}"></td>
                             <td>${datum.toLocaleString()}</td>
                             </tr>`
-                    );
-                }
-            })
-        }, 200);
+                );
+            }
+        })
+
     }
     //kreiranje klase za pravljenje objekata artikl
     class Artikl {
@@ -116,15 +117,8 @@ $(document).ready(() => {
 
     //Validacija podataka
 
-    //ispisuje obavezna polja na pocetku
-    if (!barkod.val()) {
-        errBarkod.text("Barkod je obavezan");
-        barkod.addClass("bad-input");
-    }
-    if (!naziv.val()) {
-        errNaziv.text("Naziv je obavezan");
-        naziv.addClass("bad-input");
-    }
+    //ispisuje obavezna polja na pocetku    
+    obaveznaPolja();
 
     //validacija polja u toku kucanja
     barkod.keyup(() => {
@@ -163,7 +157,7 @@ $(document).ready(() => {
     osCena.keyup(() => {
         //proverava da li je unet broj intiger i number ili da li je prazno polje
         //stavio sam da pretrava u String jer .val() je vec string i ako se ukuca 12.000 nece biti isto kao 12, nece dozvoljavati ni 0 da se upisu kao decimale       
-        if ((String(parseInt(osCena.val())) === osCena.val() && $.isNumeric(osCena.val())) || !osCena.val()) {
+        if ((String(parseInt(osCena.val())) === osCena.val() && $.isNumeric(osCena.val())) || !osCena.val() || !vrsta.val()) {
             osCena.removeClass("bad-input");
             errCena.text("");
             //racuna cenu sa pdv i zaokruzuje na 2 decimale
@@ -194,11 +188,16 @@ $(document).ready(() => {
             alert("Niste uneli sve obavezne podatke");
             return;
         }
-        
+
         //dodaje u localstorage
         addToLocalStorage();
         //ispisuje samo 1 artikl, onaj koji se sad napravio
         ispisArtikla(1);
+        //resetovanje formulara
+        $("#unos_artikla")[0].reset();
+        prikaz_slike.attr('src', "");
+        errSlika.text("");
+        obaveznaPolja();
     });
 
     //filtriranje po nazivu

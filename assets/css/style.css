@@ -11,32 +11,90 @@ body {
 .form-control:focus {
     background-color: rgba(136, 219, 255, 0.432);
 }
+
 /* stil za los unos podataka */
-.form-control:focus.bad-input,
-.custom-file-input.bad-input,
-.bad-input {
+
+.form-control:focus.bad-input, .custom-file-input.bad-input, .bad-input {
     border-color: rgba(255, 0, 0, 0.8);
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
     outline: 0 none;
 }
-.td-slika{
+
+.td-slika {
     width: 60px;
 }
-#unos_artikla .card{
+
+#unos_artikla .card {
     max-width: 200px;
     box-shadow: 0px 0px 10px grey;
 }
-#unos_artikla img{
-    background-color: rgb(163, 128, 128);      
+
+#unos_artikla img {
+    background-color: rgb(163, 128, 128);
 }
+
 /* iskljucuje strelice kod input=number */
-input[type=number].no-spinner::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
--webkit-appearance: none; 
- margin: 0; 
+
+input[type=number].no-spinner::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
-#sacuvaj:active,
-#obrisi:active{
+
+#sacuvaj:active, #obrisi:active {
     transform: scale(0.95);
-    
+}
+
+/* podesavanje tabele na manjim ekranima */
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    /* Force table to not be like tables anymore */
+    #tabela table,#tabela thead,#tabela tbody,#tabela th,#tabela td,#tabela tr {
+        display: block;
+    }
+    /* Hide table headers (but not display: none;, for accessibility) */
+    #tabela thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    #tabela tr {
+        border: 1px solid #ccc;
+    }
+    #tabela td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+    #tabela td:before {       
+        position: absolute;       
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;        
+        font-weight: bold;  
+    }
+    td:nth-of-type(1):before {
+        content: "Barkod";
+        
+    }
+    td:nth-of-type(2):before {
+        content: "Naziv";
+    }
+    td:nth-of-type(3):before {
+        content: "Opis";
+    }
+    td:nth-of-type(4):before {
+        content: "Vrsta";
+    }
+    td:nth-of-type(5):before {
+        content: "Cena (RSD)";
+    }
+    td:nth-of-type(6):before {
+        content: "Cena sa PDV-om (RSD)";
+    }
+    td:nth-of-type(7):before {
+        content: "Slika";
+    }
+    td:nth-of-type(8):before {
+        content: "Datum/Vreme";
+    }    
 }
